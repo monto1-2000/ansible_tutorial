@@ -1,0 +1,32 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+           - name: updates package indexes
+             tags: always
+             yum:
+                  update_only: yes
+                  update_cache: yes
+
+
+- hosts: web1
+  become: true
+  tasks:
+        - name: Install php package
+          tags: webserver1
+          yum:
+                  name: php
+                  state: latest
+
+- hosts: web2
+  become: true
+  tasks:
+        - name: Install http package
+          tags: webserver2
+          yum:
+                  name: 
+                    - httpd
+                    - samba  
+                  state: latest
+
