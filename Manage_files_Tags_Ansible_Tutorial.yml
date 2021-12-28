@@ -1,0 +1,26 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+      - name: "update Index"
+        tags: always
+        yum:
+            update_cache: yes
+
+- hosts: web1
+  become: true
+  tasks:
+      - name: "install apache and change the file"
+        tags: webserver1
+        yum:
+            name: httpd
+            state: latest
+  
+      - name: Ensure the default Apache port is 8080
+        tags: webserver1
+        lineinfile:
+          path: /etc/httpd/conf/httpd.conf
+          regexp: '^Listen '
+          insertafter: '^#Listen '
+          line: Listen 8080

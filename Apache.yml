@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+        - name: "Install updates"
+          tags: apache
+          yum:
+            name:
+              - php
+              - httpd  
+            state: present
+            update_cache: yes  

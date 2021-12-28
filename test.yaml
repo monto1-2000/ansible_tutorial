@@ -27,6 +27,18 @@
           yum:
                   name: 
                     - httpd
-                    - samba  
+                    - samba
+                    - unzip  
                   state: latest
+- hosts: web2
+  become: true
+  tasks:
+        - name: copy file 
+          tags: webserver2
+          copy:
+                  src: t1.txt
+                  dest: /home/ec2-user/
+                  owner: ec2-user
+                  group: ec2-user
+                  mode: 0644
 

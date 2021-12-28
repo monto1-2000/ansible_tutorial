@@ -1,0 +1,29 @@
+---
+# tasks file for /home/ec2-user/demo/mygit/ansible_tutorial/roles/Apache
+#
+- name: "Install updates"
+  tags: apache
+  yum:
+    name:
+      - php
+      - httpd
+    state: present
+    update_cache: yes
+
+- name: copy file to target server
+  tags: apache
+  copy:
+    src: files/myfile.txt
+    dest: /home/ec2-user/myfile.txt
+    owner: ec2-user
+    group: ec2-user
+    mode: 0644
+
+- name: Ansible fact - ansible_date_time
+  debug:
+   var: ansible_date_time
+
+- name: Ansible fact - ansible_date_time.iso8601
+  debug:
+   msg: "Timestamp in the ISO8601 format: {{ ansible_date_time.iso8601 }}"
+
